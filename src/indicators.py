@@ -17,13 +17,13 @@ def get_last(df,n=3):
 def adx_limit(df):
     l = 13
     r = all(df["adx"].iloc[-5:] > l)
-    if(r):
-        return Indicator(tendency=1)
+    return Indicator(tendency=int(r))
     
 def lr_swap(df:pd.DataFrame):
-    df = df[["lr"]].diff()
+    df2 = df[["lr"]].diff()
+    df2 = get_last(df2)
     df = get_last(df)
-
+    result = df2[["lr"]].prod()
 class PipelineIndicators:
     indicators = {}
 
